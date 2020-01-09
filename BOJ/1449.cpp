@@ -16,9 +16,10 @@ using namespace std;
 int main(){
     int n,l;
     int ans = 1;
+    int water[1000];
+
 
     scanf("%d %d",&n, &l);
-    int water[n];
 
     for(int i=0;i<n;i++) {
         scanf("%d",&water[i]);
@@ -26,7 +27,7 @@ int main(){
     sort(water, water+n);
     int st = water[0];
     for(int i=0;i<n;i++){
-        if(water[i]-st+1 >l){
+        if(water[i]-st >l-1){
             ans++;
             st = water[i];
         }
