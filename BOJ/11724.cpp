@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <queue>
 using namespace std;
 int n,m;
 vector<int> V[1001];
@@ -13,6 +14,23 @@ void dfs(int start){
         }
     }
 }
+void bfs(int start){
+    queue<int> q;
+    q.push(start);
+    a[start] = true;
+    while(!q.empty()){
+        int x = q.front();
+        q.pop();
+        for(int i=0;i<V[x].size();i++){
+            int next = V[x][i];
+            if(!a[next]) {
+                q.push(next);
+                a[next] = true;
+            }
+        }
+    }
+
+}
 int main(){
     scanf("%d %d", &n,&m);
     while(m--){
@@ -24,7 +42,8 @@ int main(){
     int cnt=0;
     for(int i=1;i<=n;i++){
         while(!a[i]){
-            dfs(i);
+            // dfs(i);
+            bfs(i);
             cnt++;
         }
     }
