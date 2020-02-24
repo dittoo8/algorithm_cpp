@@ -1,40 +1,40 @@
 #include <cstdio>
-#include <deque>
+#include <queue>
+#include <algorithm>
+#define INF 98765
 using namespace std;
-int m, n;
-int a[101][101];
+int n,m;
 int dist[101][101];
-const int dx[] = {-1, 0, 1, 0}, dy[] = {0, 1, 0, -1};
-int bfs() {
-    deque<pair<int, int> > dq;
-    dq.push_back(make_pair(1, 1));
-    a[1][1] = -1;
-    while (!dq.empty()) {
-        int x = dq.back().first, y = dq.back().second;
-        dq.pop_back();
-        for (int i=0; i<4; i++) {
-            int nx = x+dx[i], ny = y+dy[i];
-            if (nx < 1 || nx > n || ny < 1 || ny > m) continue;
-            if (a[nx][ny] == -1) continue;
-            else if (a[nx][ny] == 0) {
-                dq.push_back(make_pair(nx, ny));
-                dist[nx][ny] = dist[x][y];
-            } else {
-                dq.push_front(make_pair(nx, ny));
-                dist[nx][ny] = dist[x][y] + 1;
+int a[101][101];
+int dx[] = {1,0,0,-1}, dy[] = {0,-1,1,0};
+int dijkstra(){
+    priority_queue<pair<int, pair<int, int> > > pq; //비용, (x,y)
+    dist[1][1] = 0;
+    pq.push(make_pair(0,make_pair(1,1)));
+    while(!pq.empty()){
+        int nowd = -pq.top().first;
+        int nowx = pq.top().second.first;
+        int nowy = pq.top().second.second;
+        pq.pop();
+        for(int i=0;i<4;i++){
+            int nx = nowx+dx[i], ny = nowy+dy[i];
+            if (nx <1 || nx >m || ny <1 || ny<1 || ny >n) continue;
+            if(dist[nx][ny]> dist[nowx][nowy]+a[nx][ny]){
+                dist[nx][ny] = dist[nowx][nowy]+a[nx][ny];
+                pq.push(make_pair(-dist[nx][ny],make_pair(nx,ny)));
             }
-            a[nx][ny] = -1;
         }
     }
-    return dist[n][m];
+    return dist[m][n];
 }
-int main() {
-    scanf("%d %d", &m, &n);
-    for (int i=1; i<=n; i++) {
-        for (int j=1; j<=m; j++) {
+int main(){
+    scanf("%d %d", &n, &m);
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
             scanf("%1d", &a[i][j]);
+            dist[i][j] = INF;
         }
     }
-    printf("%d\n", bfs());
+    printf("%d",dijkstra());
     return 0;
 }
