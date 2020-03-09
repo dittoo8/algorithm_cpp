@@ -4,7 +4,7 @@
 using namespace std;
 int n,m;
 vector<int> res,num;
-void solve(int len){
+void solve(int len,int cur){
     if(len ==m){
         for(int i=0;i<m;i++){
             printf("%d ",res[i]);
@@ -13,11 +13,11 @@ void solve(int len){
         return;
     }else{
         bool used[10001]={false,};
-        for(int i=0;i<n;i++){
+        for(int i=cur;i<n;i++){
             if(!used[num[i]]){
                 used[num[i]]=true;
                 res[len]=num[i];
-                solve(len+1);
+                solve(len+1,i);
             }
         }
     }
@@ -31,6 +31,6 @@ int main(){
         num.push_back(temp);
     }
     sort(num.begin(),num.end());
-    solve(0);
+    solve(0,0);
     return 0;
 }
