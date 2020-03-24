@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <iostream>
 #include <string>
 using namespace std;
 int n;
@@ -26,17 +26,15 @@ void solve(int cnt, string s){
     }
 }
 int main(){
-    scanf("%d", &n);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> n;
     for(int i=0;i<n;i++){
-        scanf("%1c",&op[i]);
+        cin >> op[i];
     }
     solve(0,"");
-    for(int i=0;i<mx.length();i++){
-        printf("%c",mx[i]);
-    }
-    printf("\n");
-    for(int i=0;i<mn.length();i++){
-        printf("%c",mn[i]);
-    }
+    cout << mx <<endl;
+    cout << mn << endl;
     return 0;
 }
