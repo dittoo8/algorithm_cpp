@@ -30,6 +30,7 @@ void bfs(){
             }
         }
     }
+    cout << "-1\n" ;
 }
 int main(){
     ios_base::sync_with_stdio(0);
