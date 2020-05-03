@@ -9,12 +9,10 @@ struct trees{
     //d는 양분
     vector<int> t;
     //심어져 있는 나무
-    vector<int> dt;
-    //죽은 나무
 };
 vector<vector<trees> > v;
 int n,m,p,a[11][11],res;
-void spring(){
+void spring_summer(){
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             if (v[i][j].t.size()==0) continue;
@@ -22,29 +20,19 @@ void spring(){
             sort(v[i][j].t.begin(),v[i][j].t.end());
             int tS = v[i][j].t.size();
             vector<int> tmpt;
+            int newd=0;
             for(int k=0;k<tS;k++){
                 if(v[i][j].d >= v[i][j].t[k]){
                     v[i][j].d -=v[i][j].t[k];
                     tmpt.push_back(v[i][j].t[k]+1);
                 } else {
                     //양분을 공급할 수 없다면 현재 칸의 죽은 나무 배열에 추가
-                    v[i][j].dt.push_back(v[i][j].t[k]);
+                    newd+= floor(v[i][j].t[k]/2);
                 }
             }
             v[i][j].t.clear();
             v[i][j].t = tmpt;
-        }
-    }
-}
-void summer(){
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            if (v[i][j].dt.size()==0) continue;
-            int tS = v[i][j].dt.size();
-            for(int k=0;k<tS;k++){
-                v[i][j].d+=floor(v[i][j].dt[k]/2);
-            }
-            v[i][j].dt.clear();
+            v[i][j].d += newd;
         }
     }
 }
@@ -93,8 +81,7 @@ int main(){
         v[x][y].t.push_back(z);
     }
     for(int i=0;i<p;i++){
-        spring();
-        summer();
+        spring_summer();
         fall();
         winter();
     }
