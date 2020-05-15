@@ -60,6 +60,14 @@
         "vector": "cpp",
         "deque": "cpp",
         "queue": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "__errc": "cpp",
+        "__node_handle": "cpp",
+        "__tree": "cpp",
+        "bit": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "set": "cpp",
+        "stack": "cpp"
     }
 }
