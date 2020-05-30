@@ -1,20 +1,17 @@
 #include <cstdio>
 using namespace std;
-int t,n;
-// int res[2] = {0,};
-int dp[41][2];
-int fib(int n){
-    if (n==0) { dp[n][0]++; return 0; }
-    else if (n==1) { dp[n][1]++; return 1; }
-    else if (!(dp[n][0] == 0 && dp[n][1] == 0))
-        return fib(n-1) + fib(n-2); }
-}
+int d[41][2] = { {1,0},{0,1} };
 int main(){
-    scanf("%d", &t);
-    while(t--){
-        scanf("%d", &n);
-        fib(n);
-        printf("%d %d\n", dp[n][0], dp[n][1]);
-    }
-
+	int T;
+    scanf("%d", &T);
+	while (T--){
+		int N;
+        scanf("%d", &N);
+		for (int i = 2; i <= N; i++){
+			d[i][0] = d[i - 1][0] + d[i - 2][0];
+			d[i][1] = d[i - 1][1] + d[i - 2][1];
+		}
+        printf("%d %d\n",d[N][0],d[N][1]);
+	}
+	return 0;
 }
