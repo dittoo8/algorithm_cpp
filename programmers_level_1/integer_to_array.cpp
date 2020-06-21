@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(long long n) {
+    vector<int> answer;
+    while (true) {
+        answer.push_back(n%10);
+        n/=10;
+        if (n==0) break;
+    }
+    return answer;
+}
+int main(){
+    vector<int> v;
+    v = solution(12345);
+    for(int i=0;i<v.size();i++){
+        cout << v[i] << "," ;
+    }
+    return 0;
+}
