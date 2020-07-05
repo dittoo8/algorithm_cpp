@@ -9,53 +9,43 @@ string solution(vector<int> numbers, string hand) {
     if (hand == "right") hand = "R";
     else hand = "L";
     vector<pair<int, int> > v;
-    v.resize(10);
+    v.resize(13);
     v[0] = make_pair(3,1);
-    int i=0,j=0;
-    for(int k=1;k<=9;k++){
+    int i=0,j=-1;
+    for(int k=1;k<=12;k++){
+        j++;
         if (j==3){
             j=0;
             i++;
         }
+        if (k==11) continue;
         v[k]= make_pair(i,j);
-        j++;
     }
-    int nowl = -1, nowr = -1;
+    pair<int, int> l,r;
+    l = v[10];
+    r = v[12];
     for(int i=0;i<numbers.size();i++){
         if (numbers[i]%3 ==2 || numbers[i]==0){
-            int nlx,nly,nrx,nry;
-            if (nowl == -1 ){
-                nlx = 3, nly = 0;
-            }else {
-                nlx = v[nowl].first;
-                nly = v[nowl].second;
-            }
-            if (nowr == -1 ){
-                nrx = 3, nry = 2;
-            }else {
-                nrx = v[nowr].first;
-                nry = v[nowr].second;
-            }
             int distl,distr;
-            distl = abs(nlx - v[numbers[i]].first)+abs(nly - v[numbers[i]].second);
-            distr = abs(nrx - v[numbers[i]].first)+abs(nry - v[numbers[i]].second);
+            distl = abs(l.first - v[numbers[i]].first)+abs(l.second - v[numbers[i]].second);
+            distr = abs(r.first - v[numbers[i]].first)+abs(r.second - v[numbers[i]].second);
             if (distl < distr){ //왼손이 더 가까움
                 answer+='L';
-                nowl = numbers[i];
+                l = v[numbers[i]];
             } else if  (distr < distl){
                 answer+='R';
-                nowr = numbers[i];
+                r = v[numbers[i]];
             } else { //거리 같음
                 answer+=hand;
-                if (hand == "R") nowr = numbers[i];
-                else nowl = numbers[i];
+                if (hand == "R") r = v[numbers[i]];
+                else l = v[numbers[i]];
             }
         }else if (numbers[i]%3==1){ //왼손사용
             answer+='L';
-            nowl = numbers[i];
+            l = v[numbers[i]];
         }else if (numbers[i]%3==0){ //오른손사용
             answer+='R';
-            nowr = numbers[i];
+            r = v[numbers[i]];
         }
     }
     return answer;
