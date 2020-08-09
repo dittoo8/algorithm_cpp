@@ -1,15 +1,15 @@
 #include <iostream>
 using namespace std;
-int main() {
-    int idx;
-    cin >> idx;
-    int i = 1;
-    int diff = 0;
-    for(int sum = 0; sum+i < idx; i++){
-        sum += i;
-        diff = idx - sum;
+int main(){
+    int n, idx=0,sum=0;
+    cin >> n;
+    for(int i =1;sum+i<n;i++){
+        idx++;
+        sum+=i;
     }
-    if(i%2 == 1) cout << i-diff+1 << "/" << diff;
-    else cout << diff << "/" << i-diff+1;
+    idx++;
+    n-=sum;
+    if(idx % 2 ==0) cout << n <<"/"<< idx-n+1 <<'\n';
+    else cout << idx-n+1 <<"/"<< n <<'\n';
     return 0;
 }
