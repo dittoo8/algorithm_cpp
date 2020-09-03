@@ -1,50 +1,48 @@
-#include <cstdio>
-#include <algorithm>
+#include <iostream>
 using namespace std;
 int heap[100001];
-int hn;
-int pop() {
-    int ans = heap[1];
-    heap[1] = heap[hn];
-    heap[hn--] = 0;
-    for (int i=1; i*2 <= hn;) {
-        if (heap[i] > heap[i*2] && heap[i] > heap[i*2+1]) {
-            break;
-        } else if (heap[i*2] > heap[i*2+1]) {
-            swap(heap[i], heap[i*2]);
-            i = i*2;
-        } else {
-            swap(heap[i], heap[i*2+1]);
-            i = i*2+1;
-        }
+int lastIdx;
+void pop() {
+    if (lastIdx == 0){
+        cout << 0 << '\n';
+        return;
     }
-    return ans;
+    cout << heap[1] << '\n';
+    swap(heap[1],heap[lastIdx]);
+    lastIdx--;
+    int now = 1;
+    int child;
+    do {
+        child = 2*now;
+        if (child+1 <= lastIdx && heap[child] < heap[child+1]) child++;
+        if (child <= lastIdx && heap[now] < heap[child]){
+            swap(heap[now],heap[child]);
+        }
+        now = child;
+    } while( child <= lastIdx);
 }
 void push(int x) {
-    heap[++hn] = x;
-    for (int i=hn; i>1; i/=2) {
-        if (heap[i/2] < heap[i]) {
-            swap(heap[i/2],heap[i]);
-        } else {
-            break;
-        }
+    lastIdx++;
+    heap[lastIdx] = x;
+    int now = lastIdx;
+    int parent = now/2;
+    while (parent>=1){
+        if (heap[parent] < heap[now]){
+            swap(heap[parent],heap[now]);
+        } else break;
+        now = parent;
     }
 }
 int main() {
-    int t;
-    scanf("%d",&t);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    int t,x;
+    cin >> t;
     while (t--) {
-        int x;
-        scanf("%d",&x);
-        if (x == 0) {
-            if (hn == 0) {
-                printf("0\n");
-            } else {
-                printf("%d\n",pop());
-            }
-        } else {
+        cin >> x;
+        if (x){
             push(x);
-        }
+        } else pop();
     }
     return 0;
 }
