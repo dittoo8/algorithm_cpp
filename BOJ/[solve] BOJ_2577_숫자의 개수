@@ -1,0 +1,16 @@
+#include <stdio.h>
+int main() {
+int input;
+int mul=1, result = 0;
+int cnt[10] = { 0, };
+for (int i = 0; i < 3; i++) {
+scanf("%d", &input); mul *= input; }
+for (int i = 0; mul > 0; i++) {
+result = mul % 10; //일의 자리의 수를 result에 저장
+cnt[result] += 1; //배열[일의 자리의 수] 를 +1
+mul /= 10; //원래의 값의 자릿수를 줄임.
+} for (int i = 0; i < 10; i++) 
+printf("%d\n", cnt[i]);
+return 0;
+}
+
